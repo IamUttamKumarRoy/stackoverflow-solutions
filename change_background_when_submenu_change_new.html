@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+    <style>
+#menu
+{
+	margin-top:15px
+}
+
+#menu ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#menu ul a
+{
+	display:block;
+	color:#333;
+	text-decoration:none;
+	font-weight:700;
+	font-size:12px;
+	line-height:32px;
+	padding:0 15px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+#menu ul li
+{
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#menu ul li.current-menu-item
+{
+	background:#ddd
+}
+
+#menu ul li:hover
+{
+	background:#f6f6f6
+}
+
+#menu ul ul
+{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#fff;
+	padding:0
+}
+
+#menu ul ul li
+{
+	float:none;
+	width:200px
+}
+
+#menu ul ul a
+{
+	line-height:120%;
+	padding:10px 15px
+}
+
+#menu ul ul ul
+{
+	top:0;
+	left:100%
+}
+
+#menu ul li:hover > ul
+{
+	display:block
+}    
+    </style>
+</head>
+<body background-color="green">
+<script src="js/jquery.min.js"></script>
+
+<h1>Simple Pure CSS Drop Down Menu</h1>
+
+
+<nav id="menu">
+	<ul class="sf-js-enabled">
+		<li class="with_ul active">
+			<a href="#!/empresa" class="Empresa_bg" style="color: rgb(50, 74, 241);">Empresa</a>
+		</li>
+		<li class=""><a href="#!/missao" class="Missao_bg" style="color: rgb(255, 255, 255);">Missão</a></li>
+        <li class=""><a href="#!/valores" class="Valores_bg" style="color: rgb(255, 255, 255);">Valores</a></li>
+        <li><a href="#!/visao" class="Visao_bg" style="color: rgb(255, 255, 255);">Visão</a></li>
+        <li><a href="#!/projectos" class="Projectos_bg" style="color: rgb(255, 255, 255);">Projectos</a></li>
+		<li><a href="#!/contacts" class="Contactos_bg" style="color: rgb(255, 255, 255);">Contactos</a></li>
+	</ul>
+</nav>
+
+<input type="text" name="testing" id="emailA"/>
+<script>
+
+
+// Document Ready Start 
+$( document ).ready(function() {	
+ // Your Code Start 		
+ 
+   $("body").css("background-image","url(http://www.nshorephoto.com/greenscreen/fotolia_5650339_xxl_std.jpg)");
+ 
+ 	var menu_bg = [];
+	menu_bg['Empresa_bg'] ='http://www.nshorephoto.com/greenscreen/fotolia_5650339_xxl_std.jpg';
+	menu_bg['Missao_bg'] ='http://orig15.deviantart.net/1c5c/f/2009/109/0/5/sample_background_5_by_hiagain69.jpg';
+	menu_bg['Valores_bg'] ='http://image.slidesharecdn.com/sonicsamplebluebackground-121213031816-phpapp01/95/sonic-sample-blue-background-1-638.jpg?cb=1355390411';
+	menu_bg['Visao_bg'] ='http://blogs.flexerasoftware.com/common/images/backgrounds/green.jpg ';
+	menu_bg['Projectos_bg'] ='http://blogs.flexerasoftware.com/common/images/backgrounds/orange.jpg';
+	menu_bg['Contactos_bg'] ='https://s-media-cache-ak0.pinimg.com/736x/e0/90/af/e090af3fff9fbccdb460019c1c6e3594.jpg';
+
+	var menu_class;
+	var bg_color;
+	var bg_img;
+ 	// ID test Click Event start 
+	$("ul li a").on("click", function (e){	
+		menu_class = $(this).attr('class');
+		bg_img = menu_bg[menu_class];
+		//$("body").css("background-color",bg_color);
+		//$("body").css("background-image","url(images/bg.jpg)");
+		$("body").css("background-image","url("+bg_img+")");
+		//alert(bg_img);
+		e.preventDefault();			
+	});
+	// End of event
+ // Your Code End 	
+});
+// Document Ready End  
+</script>
+</body>
+</html>\

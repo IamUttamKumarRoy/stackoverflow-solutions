@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<a href="#" id="test">Check</a>
+
+
+<div class="container-fluid cloned-row1 cloned_div educat_info" id="cloned-row1" name="cloned-row1">
+  <!-- first row-->
+  <div class="row">
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+      <span class="required-star">*</span>
+      <label>School Name</label>
+      <br/>
+      <div class="input-group">
+        <input type="text" id="scl_name" class="ipt_Field scl_name" />
+        <p class="form-control-feedback"><i class="fa fa-search custom-mar"></i></p>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+      <label>School Description</label>
+      <br>
+      <input type="text" maxlength="30" class="ipt_Field school_Name" name="school_Name" id="school_Name" disabled/>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 hsc_fid">
+      <label><span class="required-star">*</span>High School Avg / CGPA</label>
+      <br/>
+      <input type="text" maxlength="10" class="ipt_Field ipt_Havg required_Field" id="ipt_Havg" name="ipt_Havg" />
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 deg_fid">
+      <label><span class="required-star">*</span>Degree</label>
+      <br/>
+      <select class="slt_Field txt_degreName required_Field" id="txt_degreName" name="txt_degreName[]">
+        <option value="">Please Select Degree</option>
+        <option value="Bachelor of Science in ChemEng">B CHEM</option>
+        <option value="B.Ed Field Teacher ">B.ED FT</option>
+        <option value="Bachelor of Science in Busines ">B.SC BA</option>
+        <option value="Bachelor of Science in Civil E">B.SC CE</option>
+        <option value="Bachelor of Science in C Engg">B.SC CME</option>
+        <option value="Bachelor of Science in ConMgmt">B.SC CON</option>
+        <option value="Bachelor of Science in CS ">B.SC CS</option>
+        <option value="Bachelor of Science in Env Sc">B.SC ES</option>
+        <option value="Bachelor of Science in ID ">B.SC ID</option>
+        <option value="Bachelor of Science in IST ">B.SC IST</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+
+      <label>Degree Description</label>
+      <br>
+      <input type="text" maxlength="30" class="ipt_Field degree_Description" name="degree_Description" id="degree_Description" disabled/>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+      <p class="txt_dob">
+        <label><span class="required-star">*</span>Degree Date</label>
+        <br/>
+        <input type="text" placeholder="MM/DD/YYYY" class="ipt_Field deg_date" id="txt_Degdat" name="txt_Degdat" />
+      </p>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+      <p class="txt_dob">
+        <label>Transcript Date</label>
+        <br/>
+        <input type="text" placeholder="MM/DD/YYYY" class="ipt_Field trans_date chk_date " id="txt_Trsdat" name="txt_Trsdat">
+      </p>
+    </div>
+  </div>
+  <!-- Third row-fluid-->
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <input type="button" value="add More" class="btn_more edubtnmore btn_right edu_add_button" />
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* json data*/
+var jsonData = 
+[{"id":"COL000001","label":"Emirates College of Technology- UAE","value":"COL000001"},
+ {"id":"COL000002","label":"Al Khawarizmi International College- UAE","value":"COL000002"},
+ {"id":"COL000003","label":"Syscoms College","value":"COL000003"},
+ {"id":"COL000004","label":"Abounajm Khanj Pre-Uni Center","value":"COL000004"},
+ {"id":"COL000005","label":"Advanced Placement","value":"COL000005"},
+ {"id":"COL000006","label":"Al Buraimi College (Uni Clge)","value":"COL000006"},
+ {"id":"COL000007","label":"Al-Ain Community College","value":"COL000007"},
+ {"id":"COL000008","label":"AMA Computer College","value":"COL000008"},
+ {"id":"COL000009","label":"Arab Academy for Bankg and Fin","value":"COL000009"},
+ {"id":"COL0000010","label":"ARABACDSCITECHMARTIMETRNS","value":"COL0000010"},
+ {"id":"COL0000011","label":"Arapahoe Community College","value":"COL0000011"},
+ {"id":"Other","label":"Other","value":"Other"}];
+
+/* autocomplete start here*/
+$.widget('custom.tableAutocomplete', $.ui.autocomplete, {
+    options: {
+        open: function (event, ui) {
+            // Hack to prevent a 'menufocus' error when doing sequential searches using only the keyboard
+            $('.ui-autocomplete .ui-menu-item:first').trigger('mouseover');
+        },
+        focus: function (event, ui) {
+            event.preventDefault();
+        },
+		 highlightClass: "ui-state-highlight"
+    },
+    _create: function () {
+        this._super();
+        // Using a table makes the autocomplete forget how to menu.
+        // With this we can skip the header row and navigate again via keyboard.
+        this.widget().menu("option", "items", ".ui-menu-item");
+    },
+    _renderMenu: function (ul, items) {
+        var self = this;
+        var $li = $("<li>");
+			$table = $('<table class="table-autocomplete">'),
+            $thead = $('<thead>'),
+            $headerRow = $('<tr>'),
+            $tbody = $('<tbody>');
+
+        $.each(self.options.columns, function (index, columnMapping) {
+            $('<th>').text(columnMapping.title).appendTo($headerRow);
+        });
+
+        $thead.append($headerRow);
+        $table.append($thead);
+        $table.append($tbody);
+		$li.append($table);
+		
+        ul.html($li);
+
+        $.each(items, function (index, item) {
+            self._renderItemData(ul, ul.find("table tbody"), item);
+        });
+    },
+    _renderItemData: function (ul, table, item) {
+        return this._renderItem(table, item).data("ui-autocomplete-item", item);
+    },
+    _renderItem: function (table, item) {
+        var self = this;
+        var $tr = $('<tr class="ui-menu-item" role="presentation">');
+		
+        $.each(self.options.columns, function (index, columnMapping) {
+            var cellContent = !item[columnMapping.field] ? '' : item[columnMapping.field];
+            $('<td>').text(cellContent).appendTo($tr);
+        });
+
+        return $tr.appendTo(table);
+    }
+});
+
+ $(document).ready(function() {
+	autoComplete($('#txt_schName_1'));
+});
+
+function autoComplete(t) {
+	t.tableAutocomplete({
+		highlightClass: "bold",
+		source: function(request, response) {
+		  var regex = new RegExp(request.term, 'i');
+		  //var filteredArray = filteredArray.slice(0,10);
+		  $.ajax({
+			url: "json/dummy.json",
+			dataType: "json",
+			data: {
+			  //term: request.term
+			  term: jsonData
+			},
+			success: function(data) {
+			  response($.map(data, function(item) {
+				// This code is only for testing. It should be done on the server!
+				if (regex.test(item.id) || regex.test(item.label)) {
+				  return item
+				}
+			  }));
+			},
+
+		  });
+		},
+		columns: [{
+			field: 'id',
+			title: 'Search School Name'
+		}, {
+			field: 'label',
+			title: 'School Name'
+		}],
+		delay: 500,
+		select: function (event, ui) {
+			if (ui.item != undefined) {
+				$(this).val(ui.item.value);
+				$('#school_Name').val(ui.item.label);
+				console.log(ui.item.label);
+				if (ui.item.label === "Other"){
+					var schoolObj = $(".school_Name");
+					   schoolObj.prop('disabled', false);
+					   schoolObj.val('');
+				}
+			}
+		}
+	});
+}
+/* autocomplete ends here*/
+var count = 0;
+$(document).on("click", ".edu_add_button", function() {
+  var $clone = $('.cloned-row1:eq(0)').clone(true, true);
+  var num = $('.cloned-row1').length;
+  $clone.find('[id]').each(function() {
+    this.id += '_' + num;
+    $(this).removeClass("errRed");
+    if ($(this).hasClass("required_Field")) {
+      $(this).prevAll('label').find('span.required-star').removeClass('text-error-red');
+      $(this).addClass("cloned_field");
+      //$(this).addClass("errRed");
+    } else {
+      $(this).removeClass("errRed");
+      $(this).removeClass("text-error-red");
+    }
+  });
+  $clone.find('.btn_more').after("<input type='button' value='Delete' class='btn_less1 edu_btnle' id='buttonless'/>");
+  $clone.attr('id', "cloned-row" + (++count));
+  $clone.find(".school_Name").attr('disabled', true).val('');
+  $clone.find(".txt_schName").val('').attr('id', 'txt_schName_' + count);
+  $clone.find(".degree_Description").attr('disabled', true).val('');
+  $clone.find(".ipt_Havg").val('');
+  $clone.find(".trans_date").val('');
+
+  var dateobj = new Date();
+  var datemonth;
+  if (dateobj.getMonth() + 1 < 10) datemonth = "0";
+  datemonth += dateobj.getMonth() + 1;
+  var fulldate = datemonth + "-" + dateobj.getDate() + "-" + dateobj.getFullYear();
+  $clone.find("input.deg_date")
+    .removeClass('hasDatepicker')
+    .removeData('datepicker')
+    .unbind()
+    .datepicker({
+      dateFormat: "mm/dd/yy",
+      changeMonth: true,
+      yearRange: "-100:+0",
+      changeYear: true,
+      maxDate: new Date(),
+      showButtonPanel: false,
+    });
+
+  $('.cloned_field').addClass("errRed");
+  var dateobj = new Date();
+  var datemonth;
+  if (dateobj.getMonth() + 1 < 10) datemonth = "0";
+  datemonth += dateobj.getMonth() + 1;
+  var fulldate = datemonth + "-" + dateobj.getDate() + "-" + dateobj.getFullYear();
+  $clone.find("input.trans_date")
+    .removeClass('hasDatepicker')
+    .removeData('datepicker')
+    .unbind()
+    .datepicker({
+      dateFormat: "mm/dd/yy",
+      changeMonth: true,
+      yearRange: "-100:+0",
+      changeYear: true,
+      maxDate: new Date(),
+      showButtonPanel: false,
+    });
+
+  $(this).parents('.educat_info').after($clone);
+
+  autoComplete($('txt_schName_1'));
+});
+$(document).on('click', ".btn_less1", function() {
+  var len = $('.cloned-row1,.cloned-row2,.cloned-row3,.cloned-row4,.cloned-row5').length;
+  var requireds = $(this).closest(".btn_less1")
+    .parent()
+    .parent()
+    .parent()
+    .find('.required_Field');
+  var needConfirmation = false;
+  $.each(requireds, function(index, item) {
+    if ($(item).val())
+      needConfirmation = true;
+  });
+  if (len > 0 && (!needConfirmation == needConfirmation) || confirm('Delete current/selected rows from this page? The delete will occur when the transaction is saved.')) {
+    $(this).closest(".btn_less1").parent().parent().parent().remove();
+  }
+
+});
+
+</script>
+</body>
+</html>

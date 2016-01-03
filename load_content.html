@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+    <script src="js/jquery.min.js"></script>
+	<div id="after_page_loaded">
+	
+	</div>
+	
+	<div id="openedContent">
+		<pre>
+			Hello,
+			I amalready loaded
+			.
+			.
+			.
+			Want to load something else!
+		</pre>
+	</div>
+    <script>
+    $( document ).ready(function() {						
+
+		//$("#after_page_loaded").text("Yea I loaded When page loaded");
+		setInterval("newContent()",1000);
+		
+		
+		//
+	});
+	//End of document ready
+	
+	function newContent()
+	{
+		$("#after_page_loaded").text("Yea I loaded When page loaded").change();
+		//$("#navix").load("new1.php");
+		
+	}
+    </script>
+</body>
+</html>

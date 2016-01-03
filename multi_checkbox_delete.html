@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Multi Check box Delete </title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+
+
+<table>
+	<td><a href="javascript:confirmDelete('?action=deleteurl&id=<?php echo $row[0]; ?>')">
+		<input class="delCheck" type="checkbox" id="myCheck[]" value="1">delete
+	</td>
+	<td>
+		<input class="delCheck" type="checkbox" id="myCheck[]" value="2">delete
+	</td>
+	<td>
+		<input class="delCheck" type="checkbox" id="myCheck[]" value="3">delete
+	</td>
+	<td>
+		<input class="delCheck" type="checkbox" id="myCheck[]" value="4">delete
+	</td>
+	<td>
+		<input class="delCheck" type="checkbox" id="myCheck[]" value="5">delete
+	</td>
+	<td>
+		<input class="delCheck" type="button" id="delete_value" name="delete_value" value="Delete" />
+	</td>
+</table>
+
+<script>
+// Document Ready Start 
+$( document ).ready(function() {			
+	
+	$("#delete_value").on("click", function (e){		
+		var val = [];
+		//$('.delCheck :checkbox:checked').each(function(i){
+		$('.delCheck:checked').each(function(i){
+		  val[i] = $(this).val();
+		  console.log($(this).val());
+		});					
+	});		 
+	
+ // 	
+});
+// Document Ready End  
+</script>
+</body>
+</html>

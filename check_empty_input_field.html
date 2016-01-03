@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+
+<form action="search.php" method="post">
+	<input type="text" class="search" placeholder="search here"/>
+	<input type="submit" class="Button" value="search"/>
+</form> 
+
+<script>
+$(document).ready(function(){
+	// By default submit is disabled 
+	$('.Button').prop('disabled', true);
+
+	$('.search').keyup(function() {
+
+		if($(this).val().length !=0 ) {			
+			$('.Button').prop('disabled', false); 
+		} else {
+			$( ".search").focus();		
+		    $('.Button').prop('disabled', true);
+		    e.preventDefault();
+		}
+		
+	});
+});
+</script>
+</body>
+</html>

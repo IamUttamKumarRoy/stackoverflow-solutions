@@ -1,0 +1,39 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/jquery-ui.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#datepicker1").datepicker({dateFormat: 'dd-mm-yy'});
+});
+</script>
+<style>
+.ui-datepicker{
+    font-size: 9.5pt;
+}
+
+.ui-widget-header{
+    font-size: 12px;
+    color: #102132;
+    background: #D7E5F2;
+}
+
+#ui-datepicker-div .ui-state-highlight{
+    background: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+.ui-datepicker-current-day .ui-state-active{
+    background: white;
+    color: blue;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<input type="text" name="examdate" id="datepicker1" /> 
+</body>
+</html>

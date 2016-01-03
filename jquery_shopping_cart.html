@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Example of Bootstrap 3 Responsive Tables</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<script src="js/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+    .bs-example{
+        background: #355979;
+        margin: 20px;
+    }
+    a {
+        color:#FFF;
+        font-weight: bold;
+    }
+    table{
+        color:#FFF;
+        font-weight: bold;
+    }
+    table input{
+        color:#000;
+    }
+    .delete{
+        color:#E13D3D;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .checkout input{
+        background: #FF002A;
+        color: #FFF;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="bs-example">
+    <div class="table-responsive"> 
+        <table class="table table-bordered">
+            <colgroup>
+                <col style="align: center; width: 30%" />
+                <col style="align: center; width: 20%" />
+                <col style="align: center; width: 20%" />
+                <col style="align: center; width: 20%" />
+                <col style="align: center; width: 10%" />
+            </colgroup>           
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="1">
+                    <th class='product'>
+                        Karpap Pushing Ayu
+                        <input type='hidden' name='catalog_name[]' value="Karpap Pushing Ayu">
+                    </th>
+                    <td class="price">                                            
+                        <span>5</span>
+                        <input type='hidden' name='1_price[]' value="5"> 
+                    </td>
+                    <td class="qty_1">
+                        <input type='text' name='qty' onfocus='subTotal("1")' value='5'>
+                        <input type='hidden' name='1_qty2[]' class="product_qty" value="5">
+                    </td>
+                    <td class="sub_total">
+                        <span class='sub_total_1'></span>
+                        <input type='hidden' name='1_sub_total[]' value=''>
+                    </td>
+                    <td>
+                        <img src='del.png' style='width:15px;cursor:pointer;' onClick='del_this("1")' alt="x">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Slimming Tea</td>
+                    <td class="product_price">25</td>
+                    <td><input type="text" name="qty" class="product_qty" value="5"></td>
+                    <td class="amount_sub_total">125</td>
+                    <td><a href="#" class="delete">x</a></td>
+                </tr>
+
+                <tr>
+                    <td>Total</td>
+                    <td>&nbsp;</td>
+                    <td id="total_qty">
+                        <span class='qty_1'>15</span>
+                        <input type='hidden' name='total_qty' value=''>
+                    </td>
+                    <td id="total_amount">
+                        <span class='total'>235</span>
+                        <input type='hidden' name='total' value=''>
+                    </td>                    
+                    <td>&nbsp;</td>
+                </tr> 
+                <tr>
+                    <td>GST 6 %</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td id="gst_amount">                        
+                        <span class='gst'>14.1</span><input type='hidden' name='gst' value='14.1'>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr> 
+                <tr>
+                    <td>Discount  (x%)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td id="discount_amount">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>   
+                <tr>
+                    <td>Total Payment</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td id="grand_total">
+                        <span class='grand'>249.1</span>
+                        <input type='hidden' name='grand' value=''>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr> 
+                <tr>
+                    <td colspan="5" class="checkout">
+                        <input type="submit" name='submit' id="checkout" value="CHECK OUT"/>
+                    </td>
+                </tr>                                             
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+$( document ).ready(function() {    
+
+
+                   
+   
+    $(document).on("input paste keyup", ".product_qty", function( event ) {         
+        
+        var product_quantity = 0;
+        var product_price = 0;
+        var gst_amount = 0;
+
+        var sub_total = 0;
+        var total_qty = 0; 
+        var grand_total = 0
+
+        product_quantity = $(this).val();
+        product_price = $(this).parent().prev().html();
+
+        sub_total = product_price * product_quantity;
+
+        $(this).parent().next().html(sub_total);
+
+
+        $('.product_qty' ).each( function( k, v ) {
+            product_quantity = parseInt ( $(this).val() ) ? parseInt ( $(this).val() ) : 0;
+            product_price = parseFloat($(this).parent().prev().html())?parseFloat($(this).parent().prev().html()):0;
+
+            console.log(product_quantity);
+            console.log(product_price);            
+
+            sub_total = parseFloat ( product_price * product_quantity );
+
+            console.log(sub_total);
+
+            total_qty +=product_quantity;
+
+            grand_total += sub_total;
+
+        });
+
+        if ( grand_total > 0 ){
+            gst_amount = ( grand_total * 6 ) /100;
+        }
+         
+        $(".qty_1").html(total_qty);        
+        $(".total").html(grand_total);        
+
+        grand_total +=gst_amount;
+
+        $(".gst").html(gst_amount);        
+        //$("#discount_amount").html(0);        
+        $(".grand").html(grand_total);  
+      
+    });
+    //
+    $(document).on("click", ".delete", function( event ) {
+        
+        var cart_item = 0;
+        $(this).parent().parent().remove();
+
+        cart_item = $('.product_qty').length;
+        if ( cart_item <= 0 ) 
+        {
+            $(".qty_1").html(total_qty);        
+            $(".total").html(grand_total);        
+            $(".gst").html(gst_amount);              
+            $(".grand").html(grand_total);              
+        } else {
+            $('.product_qty').trigger('keyup');  
+        }      
+        
+    }); 
+    
+    
+});
+// End Document Ready
+</script>
+</body>
+</html>                                		

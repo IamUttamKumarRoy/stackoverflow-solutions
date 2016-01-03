@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<a href="#" id="test">Check</a>
+<form>
+    <!-- First question -->
+    <div class="question_1">
+	    <fieldset>
+	        <input type="radio" name="trend1" value="Progressing">Progressing
+	        <input type="radio" name="trend1" value="Regressing">Regressing
+	    </fieldset>
+
+	    <fieldset>
+	        <input type="radio" name="q1" value="Good">Good
+	        <input type="radio" name="q1" value="Bad">Bad
+	    </fieldset>
+	</div>
+
+    <button class="next hideQ1" type="button" name="hideQ1" style="display:none;" value="Next">Next Question
+    </button> 
+    <!-- Disable this button until one option on #trend1 and #q1 are checked. -->
+    <!-- Not a submit button, if that matters -->
+
+	<div class="question_2" style="display:none;">
+	    <!-- Second question -->
+	    <fieldset>
+	        <input type="radio" name="trend2" value="Progressing">Progressing
+	        <input type="radio" name="trend2" value="Regressing">Regressing
+	    </fieldset>
+
+	    <fieldset>
+	        <input type="radio" name="q2" value="Good">Good
+	        <input type="radio" name="q2" value="Bad">Bad
+	    </fieldset>
+	</div>
+    <button class="next hideQ2" type="button" name="hideQ2" style="display:none;">Next Question</button>
+    <!-- Disable this button until one option on #trend2 and #q2 are checked. -->
+    <!-- Not a submit button, if that matters -->
+</form> 
+<script>
+// Document Ready Start 
+$( document ).ready(function() {	
+ // Your Code Start 		
+ 
+ 	var isTrend1 = false;
+ 	var isQ1 = false;
+
+ 	$("input[name='trend1']").on("click", function (e){	
+		isTrend1 =$("input[name='trend1']").is(':checked'); 
+		isQ1 =$("input[name='q1']").is(':checked'); 
+
+		if ( isTrend1 && isQ1 ) {			
+			$('.hideQ1').css({'display':'block'});
+		}
+	});
+
+ 	$("input[name='q1']").on("click", function (e){				
+		isTrend1 =$("input[name='trend1']").is(':checked'); 
+		isQ1 =$("input[name='q1']").is(':checked'); 
+		if ( isTrend1 && isQ1 ) {			
+			$('.hideQ1').css({'display':'block'});
+		}		
+	});	
+
+ 	$(".hideQ1").on("click", function (e){				
+		$('.hideQ1').css({'display':'none'});		
+		$('.question_1').css({'display':'none'});		
+		$('.question_2').css({'display':'block'});		
+	});	
+
+ 	var trend2 = false;
+ 	var isQ2 = false;
+
+ 	$("input[name='trend2']").on("click", function (e){	
+		isTrend2 =$("input[name='trend2']").is(':checked'); 
+		isQ2 =$("input[name='q2']").is(':checked'); 
+		alert(isTrend2);
+		alert(isQ2);
+		if ( isTrend2 && isQ2 ) {			
+			$('.hideQ2').css({'display':'block'});
+		}
+	});
+
+ 	$("input[name='q2']").on("click", function (e){				
+		isTrend2 =$("input[name='trend2']").is(':checked'); 
+		isQ2 =$("input[name='q2']").is(':checked'); 
+		if ( isTrend2 && isQ2 ) {			
+			$('.hideQ2').css({'display':'block'});
+		}		
+	});	
+	
+
+ // Your Code End 	
+});
+// Document Ready Start 
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Animate Gallery</title>
+    <style>
+    div.mp-gallery {
+  position: relative;
+  top: 10%;
+  left: 0;
+  border: 1px solid black;
+  background-color: #333;
+  height: 40%;
+  width: 100%;
+  font-size: 0;
+  box-shadow: 0 0 20px black;
+  white-space: nowrap;
+}
+
+div.mp-gallery-item {
+  display: inline-block;
+  width: calc(100% / 3);
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  font-size: 12pt;
+  position: absolute; /* Changed this */
+}
+
+div.mp-gallery-item {
+  height: 100px;
+}
+
+div.mp-gallery-item-image {
+  cursor: pointer;
+  height: 100%;
+}
+
+div.mp-gallery-item-text {
+  padding: 2%;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  top: -50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  color: white;
+}
+    </style>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<div class="mp-gallery">
+            <div class="mp-gallery-item" id="slide-1">
+                <div class="mp-gallery-item-image" style="background-color: burlywood;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                    Image Text
+                </div>
+            </div>
+            <div class="mp-gallery-item" id="slide-2">
+                <div class="mp-gallery-item-image" style="background-color: darkgreen;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                    Image Text
+                </div>
+            </div>
+            <div class="mp-gallery-item" id="slide-3">
+                <div class="mp-gallery-item-image" style="background-color: darkseagreen;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                    Image Text
+                </div>
+            </div>
+            <div class="mp-gallery-item" id="slide-4">
+                <div class="mp-gallery-item-image" style="background-color: cadetblue;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                    Image Text
+                </div>
+            </div>
+            <div class="mp-gallery-item" id="slide-5">
+                <div class="mp-gallery-item-image" style="background-color: coral;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                   Image Text
+                </div>
+            </div>
+            <div class="mp-gallery-item" id="slide-6">
+                <div class="mp-gallery-item-image" style="background-color: gainsboro;">
+
+                </div>
+                <div class="mp-gallery-item-text">
+                    Image Text
+                </div>
+            </div>
+        </div>
+<script>
+$(document).ready(function() {
+  var AnimateGallery = function(item) {
+    $(item).animate({
+      left: "-=1"
+    }, 20, 'linear', function() {
+      $(item).attr("data-off", $(item).offset().left + $(item).width());
+      $(item).attr("data-out", Boolean($(item).offset().left + $(item).width() < 100).toString());
+      if (parseFloat($(item).attr("data-off")) < 0) {
+        $(item).remove();
+      } else
+        AnimateGallery($(item));
+    });
+  };
+
+  $(".mp-gallery")
+    .find(".mp-gallery-item")
+    .each(function(index) {
+      var $el = $(this);
+      $el.css("left", $el.width() * index); /* Added this */
+      AnimateGallery($el);
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<form action="#" method="POST" id="cart_form">
+<table class='header_tbl' style="background:none !important;">
+
+<thead>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Sub Total</th>
+        <th></th>
+    </tr>
+</thead>
+
+    <tbody>
+    </tbody>
+    <tfoot>
+
+    <tr>
+        <td>Total</td>
+        <td></td>
+        <td><span class='qty_1'></span><input type='hidden' name='total_qty' value=''></td>
+        <td><span class='total'></span><input type='hidden' name='total' value=''></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>GST 6%</td>
+        <td></td>
+        <td></td>
+        <td><span class='gst'></span><input type='hidden' name='gst' value=''></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Discount (x%)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+      <td>Total Payment</td>
+      <td></td>
+      <td></td>
+      <td><span class='grand'></span><input type='hidden' name='grand' value=''></td>
+      <td></td>
+    </tr>
+
+    <tr>
+        <td colspan="5" class="checkout">
+            <input type="submit" name='submit' id="checkout" value="CHECK OUT"/>
+        </td>
+        </tr>
+    </tfoot>
+
+
+
+</table>
+ </form>
+
+
+
+
+  for (i = 0; i < data.length; i++) {
+    $(".header_tbl tbody").prepend("
+
+    <tr id='"+data[i].id+"'>
+        <th class='product'>
+            "+data[i].catalog_name+
+            "<input type='hidden' name='catalog_name[]' value='"+data[i].catalog_name+"'>
+        </th>
+        <td class='price'>RM 
+            <span>"+data[i].price_normal+"</span>
+            <input type='hidden' name='"+data[i].id+"_price[]' value='"+data[i].price_normal+"'>
+        </td>
+        <td class='qty_"+data[i].id+"'>
+            <input type='text' name='qty' style='width:50px;height:20px;margin:10px auto;' onfocus='subTotal(\""+data[i].id+"\")' value=''>
+            <input type='hidden' name='"+data[i].id+"_qty2[]' value=''>
+        </td>
+        <td class='sub_total'>
+            <span class='sub_total_"+data[i].id+"'></span>
+            <input type='hidden' name='"+data[i].id+"_sub_total[]' value=''>
+        </td>
+        <td>
+            <img src='"+p_img_path+"del.png' style='width:15px;cursor:pointer;' onClick='del_this(\""+data[i].id+"\")'>
+        </td>
+    </tr>");  
+    }

@@ -1,0 +1,74 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui-v1.11.1.css">
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.11.1/jquery-ui.js">    </script>
+<script type="text/javascript">
+$(function(){
+    //$("#datepicker1").datepicker({dateFormat: 'dd-mm-yy'});
+	
+	$("#datepicker1").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: 'mm/dd/yy',
+		beforeShow: function (input, inst) {
+			var rect = input.getBoundingClientRect();
+			setTimeout(function () {
+				inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+			}, 0);
+		}
+	});	
+});
+</script>
+<style>
+.ui-datepicker{
+    font-size: 9.5pt;
+}
+
+.ui-widget-header{
+    font-size: 12px;
+    color: #102132;
+    background: #D7E5F2;
+}
+
+#ui-datepicker-div .ui-state-highlight{
+    background: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+.ui-datepicker-current-day .ui-state-active{
+    background: white;
+    color: blue;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+<pre>
+ $(".datepicker").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: 'mm/dd/yy',
+    beforeShow: function (input, inst) {
+        var rect = input.getBoundingClientRect();
+        setTimeout(function () {
+	        inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+        }, 0);
+    }
+});
+</pre>
+A<br>
+B<br>
+C<br>
+D<br>
+E<br>
+F<br>
+G<br>
+H<br>
+I<br>
+
+
+<input type="text" name="examdate" id="datepicker1" /> 
+</body>
+</html>

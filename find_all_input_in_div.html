@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<a href="#" id="test">Check</a>
+<div id="panel">
+  <table>
+    <tr>
+       <td><input id="Search_NazovProjektu" type="text" value="" /></td>
+    </tr>
+    <tr>
+       <td><input id="Search_Popis" type="text" value="" /></td>
+    </tr>
+  </table>
+</div>
+<div id="panel2">
+  <table>
+    <tr>
+       <td><input id="Search_NazovProjektu_2" type="text" value="" /></td>
+    </tr>
+    <tr>
+       <td><input id="Search_Popis_2" type="text" value="" /></td>
+    </tr>
+  </table>
+</div>
+
+<span class="every_cost">100.1</span>  
+<span class="every_cost">200.2</span>  
+<span class="every_cost">300.3</span>  
+<span class="every_cost">400.4</span>  
+<span class="every_cost">500.5</span>  
+<script>
+// Document Ready Start 
+$( document ).ready(function() {	
+ // Your Code Start 					
+ 	// ID test Click Event start 
+	$("#test").on("click", function (e){	
+    var id;
+		var class_name;
+		$("#panel :input").each(function(e){	
+			id = this.id;
+			$("#"+id).attr('disabled','disabled');
+			$("#"+id).prop('disabled', true);
+			$("#"+id).val('disabled');
+			console.log(id);
+			console.log(this.id);
+		});		
+
+    //$(".every_cost").find("span").each(function()
+    $(".every_cost").each(function()
+    {
+       var $li=$(this);                
+       alert($li.text()) 
+    });    
+
+	});
+	// End of event
+ // Your Code End 	
+});
+// Document Ready Start 
+</script>
+</body>
+</html>
